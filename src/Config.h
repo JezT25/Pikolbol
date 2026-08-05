@@ -31,6 +31,16 @@ constexpr uint8_t SCORE_SWITCH_B_PIN = D6;
 constexpr uint8_t SET_SCORE_SWITCH_A_PIN = D7;
 constexpr uint8_t SET_SCORE_SWITCH_B_PIN = A0;
 
+// Digital switch electrical mode.
+// - true: use internal pull-up and treat LOW as pressed (switch to GND).
+// - false: leave pin as INPUT and treat HIGH as pressed (requires external pull-down).
+constexpr bool DIGITAL_SWITCH_USE_INTERNAL_PULLUP = true;
+constexpr bool DIGITAL_SWITCH_ACTIVE_LOW = true;
+
+// Set-B can be read from A0 as analog (default) or as digital input.
+// Keep this true for the current wiring.
+constexpr bool SET_SCORE_B_USE_ANALOG = true;
+
 // A0 is analog-only on typical NodeMCU boards; treat low ADC values as pressed.
 constexpr int ANALOG_BUTTON_PRESSED_THRESHOLD = 200;
 

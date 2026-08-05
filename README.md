@@ -17,6 +17,13 @@ Wiring image moved into docs assets for a cleaner root folder:
 
 Note: A0 is handled as analog input in code. If your resistor network is different, tune ANALOG_BUTTON_PRESSED_THRESHOLD in src/Config.h.
 
+Digital switch wiring mode is configurable in src/Config.h:
+
+- DIGITAL_SWITCH_USE_INTERNAL_PULLUP = true and DIGITAL_SWITCH_ACTIVE_LOW = true:
+	switch connects pin to GND when pressed (recommended for D5, D6, D7)
+- DIGITAL_SWITCH_USE_INTERNAL_PULLUP = false and DIGITAL_SWITCH_ACTIVE_LOW = false:
+	switch drives HIGH when pressed and uses external pull-down
+
 ## Project Architecture
 
 - PickleballScoreboard.ino: Arduino entrypoint (setup, loop)

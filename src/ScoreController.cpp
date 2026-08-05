@@ -1,10 +1,26 @@
 #include "ScoreController.h"
 
 ScoreController::ScoreController()
-    : scoreAButton_(cfg::SCORE_SWITCH_A_PIN),
-      scoreBButton_(cfg::SCORE_SWITCH_B_PIN),
-      setScoreAButton_(cfg::SET_SCORE_SWITCH_A_PIN),
-  setScoreBButton_(cfg::SET_SCORE_SWITCH_B_PIN, true),
+  : scoreAButton_(
+      cfg::SCORE_SWITCH_A_PIN,
+      false,
+      cfg::DIGITAL_SWITCH_USE_INTERNAL_PULLUP,
+      cfg::DIGITAL_SWITCH_ACTIVE_LOW),
+    scoreBButton_(
+      cfg::SCORE_SWITCH_B_PIN,
+      false,
+      cfg::DIGITAL_SWITCH_USE_INTERNAL_PULLUP,
+      cfg::DIGITAL_SWITCH_ACTIVE_LOW),
+    setScoreAButton_(
+      cfg::SET_SCORE_SWITCH_A_PIN,
+      false,
+      cfg::DIGITAL_SWITCH_USE_INTERNAL_PULLUP,
+      cfg::DIGITAL_SWITCH_ACTIVE_LOW),
+    setScoreBButton_(
+      cfg::SET_SCORE_SWITCH_B_PIN,
+      cfg::SET_SCORE_B_USE_ANALOG,
+      cfg::DIGITAL_SWITCH_USE_INTERNAL_PULLUP,
+      cfg::DIGITAL_SWITCH_ACTIVE_LOW),
       model_(ScoreModel::instance()),
       display_(DisplayDriver::instance()) {}
 

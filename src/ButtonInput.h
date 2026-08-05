@@ -12,7 +12,11 @@ enum class PressType : uint8_t {
 
 class ButtonInput {
 public:
-  explicit ButtonInput(uint8_t pin, bool analogMode = false);
+  explicit ButtonInput(
+      uint8_t pin,
+      bool analogMode = false,
+      bool useInternalPullup = true,
+      bool activeLow = true);
 
   void begin();
   PressType poll();
@@ -24,6 +28,8 @@ private:
 
   uint8_t pin_;
   bool analogMode_;
+  bool useInternalPullup_;
+  bool activeLow_;
   bool lastRawState_;
   bool stablePressed_;
   bool longPressFired_;

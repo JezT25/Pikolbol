@@ -1,17 +1,19 @@
 #include "ButtonInput.h"
 
-ButtonInput::ButtonInput(uint8_t pin, bool analogMode)
+ButtonInput::ButtonInput(uint8_t pin, bool analogMode, bool useInternalPullup, bool activeLow)
     : pin_(pin),
       analogMode_(analogMode),
+      useInternalPullup_(useInternalPullup),
+      activeLow_(activeLow),
       lastRawState_(HIGH),
       stablePressed_(false),
-  longPressFired_(false),
+      longPressFired_(false),
       lastDebounceAtMs_(0),
       pressedAtMs_(0) {}
 
 void ButtonInput::begin() {
   if (!analogMode_) {
-    pinMode(pin_, INPUT_PULLUP);
+    pinMode(pin_, useInternalPullup_ ? INPUT_PULLUP : INPUT);
   }
   lastRawState_ = readPressedRaw();
   stablePressed_ = lastRawState_;
@@ -21,7 +23,8 @@ bool ButtonInput::readPressedRaw() const {
   if (analogMode_) {
     return analogRead(pin_) <= cfg::ANALOG_BUTTON_PRESSED_THRESHOLD;
   }
-  return digitalRead(pin_) == LOW;
+  const int rawLevel = digitalRead(pin_);
+  return activeLow_ ? (rawLevel == LOW) : (rawLevel == HIGH);
 }
 
 PressType ButtonInput::poll() {
